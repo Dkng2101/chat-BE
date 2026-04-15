@@ -62,8 +62,9 @@ model Message {
 
   type MessageType @default(TEXT)
 
-  createdAt DateTime @default(now())
+  embedding Unsupported("vector(1536)")?
 
+  createdAt DateTime @default(now())
 }
 
 enum MessageType {

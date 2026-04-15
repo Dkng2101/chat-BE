@@ -2,12 +2,13 @@ import { randomUUID } from "crypto";
 import { prisma } from "../../../db/prisma";
 
 export const createMessage = async (data: any) => {
+  console.log("Creating message with data: ", data);
   const message = await prisma.message.create({
     data: {
       id: randomUUID().toString(),
       text: data.text,
       senderId: data.senderId,
-      conversationId: data.conversationId,
+      conversationId: data.conversationId.toString(),
       type: data.type || "text",
     },
   });

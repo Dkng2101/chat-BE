@@ -1,14 +1,16 @@
 {
-  "name": "socket-io",
+  "name": "chat-postgres",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:up": "docker compose up -d postgres",
-    "db:down": "docker compose down",
+    "db:down": "docker compose down -v",
     "db:migrate": "npx prisma migrate deploy",
     "db:setup": "docker compose up -d postgres && npx prisma migrate deploy",
     "generate-data": "npx ts-node src/scripts/seed.ts",
+    "db:migrate:dev": "npx prisma migrate dev",
+    "prisma:studio": "npx prisma studio",
     "dev": "ts-node-dev src/index.ts"
   },
   "keywords": [],

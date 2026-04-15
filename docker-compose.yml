@@ -1,7 +1,7 @@
 services:
   postgres:
-    image: postgres:16-alpine
-    container_name: socket-io-postgres
+    image: pgvector/pgvector:pg16
+    container_name: chat-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: chatdb
