@@ -16,7 +16,11 @@ export const createMessage = async (data: any) => {
   return message;
 };
 
-export const getMessages = async (conversationId: string) => {
+export const getMessages = async (conversationId: string, take: number, cursor?: string) => {
+
+  console.log("Fetching messages for conversationId: "
+    , conversationId, " with take: ", take, " and cursor: ", cursor);
+
   const messages = await prisma.message.findMany({
     where: { conversationId },
     include: {
@@ -25,7 +29,11 @@ export const getMessages = async (conversationId: string) => {
       },
     },
     orderBy: { createdAt: "desc" },
-    take: 5
+    take,
+    ...(cursor && {
+      cursor: { id: cursor },
+      skip: 1,
+    }),
   });
 
   return messages.reverse();
