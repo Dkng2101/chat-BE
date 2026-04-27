@@ -10,7 +10,8 @@
     "db:setup": "docker compose up -d postgres && npx prisma migrate deploy",
     "generate-data": "npx ts-node src/scripts/seed.ts",
     "db:migrate:dev": "npx prisma migrate dev",
-    "prisma:studio": "npx prisma studio",
+    "db:migrate:reset": "npx prisma migrate reset",
+    "studio": "npx prisma studio",
     "dev": "ts-node-dev src/index.ts"
   },
   "keywords": [],
@@ -24,12 +25,12 @@
     "express": "^5.2.1",
     "express-list-endpoints": "^7.1.1",
     "openai": "^6.33.0",
-    "prisma": "^6.19.3",
     "socket.io": "^4.8.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.2",
+    "prisma": "^6.19.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^6.0.2"
   }

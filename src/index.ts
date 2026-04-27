@@ -6,6 +6,7 @@ import { registerChatHandlers } from "./socket/chat.socket";
 import listEndpoints from "express-list-endpoints";
 import searchRoutes from "./modules/search/search.routes";
 import messageRoutes from "./modules/message/message.routes";
+import userRoutes from "./modules/users/users.routes";
 import { socketHandlers } from "./socket/socket.handler";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/messages", messageRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/users", userRoutes);
 
 const httpServer = createServer(app);
 

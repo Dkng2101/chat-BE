@@ -62,7 +62,7 @@ model Message {
 
   type MessageType @default(TEXT)
 
-  embedding Unsupported("vector(1536)")?
+  embedding Unsupported("vector(768)")?
 
   createdAt DateTime @default(now())
 }
