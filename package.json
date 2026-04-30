@@ -7,6 +7,7 @@
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down -v",
     "db:migrate": "npx prisma migrate deploy",
+    "build": "tsc",
     "db:setup": "docker compose up -d postgres && npx prisma migrate deploy",
     "generate-data": "npx ts-node src/scripts/seed.ts",
     "db:migrate:dev": "npx prisma migrate dev",

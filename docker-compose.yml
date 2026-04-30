@@ -12,10 +12,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d chatdb"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d chatdb" ]
       interval: 5s
       timeout: 5s
       retries: 10
 
+  backend:
+    build: .
+    container_name: chat-backend
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:123456@postgres:5432/chatdb
+    ports:
+      - "3000:3000"
+    command: sh -c "npx prisma migrate deploy && node dist/index.js"
 volumes:
   postgres_data:
