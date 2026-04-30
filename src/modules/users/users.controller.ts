@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Prisma } from "@prisma/client";
-import { createUser, getUsers } from "./services/user.service";
+import { createUser, getUsers, loginUser } from "./services/user.service";
 
 export const createUserController = async (req: Request, res: Response) => {
   const { name, email } = req.body ?? {};
@@ -30,8 +30,33 @@ export const createUserController = async (req: Request, res: Response) => {
   }
 };
 
-export const getUsersController = async (_req: Request, res: Response) => {
+export const getUsersController = async (req: Request, res: Response) => {
+  const email = req.query.email?.toString().trim();
+  const userName = req.query.userName?.toString().trim();
+  const name = req.query.name?.toString().trim();
+
   try {
+    if (email) {
+      const resolvedName = name || userName;
+
+      if (!resolvedName) {
+        return res.status(400).json({
+          error: "name or userName is required when email is provided",
+        });
+      }
+
+      const result = await loginUser({
+        email,
+        name: resolvedName,
+      });
+
+      return res.json({
+        message: "Login verified successfully",
+        isNewUser: result.isNewUser,
+        data: result.user,
+      });
+    }
+
     const users = await getUsers();
 
     return res.json({ data: users });
